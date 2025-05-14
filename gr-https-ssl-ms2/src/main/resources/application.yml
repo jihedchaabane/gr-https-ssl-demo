@@ -1,0 +1,92 @@
+server:
+  port: 8442
+  ssl:
+    enabled: true
+    key-store-type: PKCS12
+    key-store: classpath:ms2.p12
+    key-store-password: jihed123
+    key-alias: ms2
+
+spring:
+  application:
+    name: gr-https-ssl-ms2
+  cloud:
+    discovery:
+      enabled: true
+
+#local
+host.where.docker.ip: localhost
+
+params:
+  eureka:
+    uri: http://localhost:8761/eureka/
+  oauth2:
+    issuerUri: http://localhost:8764
+  gateway:
+    uri: http://localhost:8766
+  gatewayOauth2:
+    uri: http://localhost:7766
+  zipkin:
+    uri: http://localhost:9411
+aggregator.eureka.enabled: true
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${params.eureka.uri}
+    fetch-registry: true
+    register-with-eureka: true
+    registry-fetch-interval-seconds: ${eureka.fetch.seconds:60}
+#  instance:
+#    preferIpAddress: true
+#    ipAddress: ${host.where.docker.ip}
+#    hostname: ${spring.application.name}
+#    metadata-map:
+#      swagger.aggregator.enabled: ${aggregator.eureka.enabled:false}
+
+management:
+  endpoints:
+    web.exposure.include: "*"
+    web.base-path: /actuator
+    web.enable.include: health
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+## START : uri de gr-conf-swagger-aggregator0
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+    try-it-out-enabled: true
+  show-actuator: false
+swagger-params:
+  issuerUri: ${params.oauth2.issuerUri}
+  servers:
+    liste:
+      - uri: http://localhost:${server.port}
+        description: Local environment
+      - uri: http://10.0.0.137:${server.port}
+        description: Development environment
+      - uri: http://10.0.0.500:${server.port}
+        description: Homologation environment
+      - uri: http://10.0.0.500:${server.port}
+        description: Production environment
+  aggregator:
+    enabled: ${aggregator.eureka.enabled}
+    cors:
+      uri: http://${host.where.docker.ip}:8765
+
+caller:
+  destination:
+    # gr-https-ssl-ms2 from swagger.
+    client0:
+      resourceUri:
+      clientId:
+      clientSecret:
+      scopes:
+      registrationId:
