@@ -17,7 +17,7 @@ public class Ms1Controller {
     	
     	logger.info("Hello from GR-HTTPS-SSL-MS1");
     	
-        return "GR-HTTPS-SSL-MS1";
+        return "Hello from GR-HTTPS-SSL-MS1";
     }
     
 }
