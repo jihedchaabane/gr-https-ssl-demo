@@ -15,9 +15,9 @@ public class Ms2Controller {
     @GetMapping("/get")
     public String ms2() {
     	
-    	logger.info("Hello from HTTPS--MS2");
+    	logger.info("Hello from GR-HTTPS-SSL-MS2");
     	
-        return "Hello from HTTPS--MS2";
+        return "Hello from GR-HTTPS-SSL-MS2";
     }
     
 }

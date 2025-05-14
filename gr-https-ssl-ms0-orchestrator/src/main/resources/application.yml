@@ -103,3 +103,9 @@ caller:
       clientSecret:
       scopes:
       registrationId: sts-ms4-service-registration
+    client5:
+      resourceUri: http://localhost:2021
+      clientId:
+      clientSecret:
+      scopes:
+      registrationId: sts-ms1-department-service-registration

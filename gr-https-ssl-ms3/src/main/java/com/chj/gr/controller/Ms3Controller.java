@@ -15,9 +15,9 @@ public class Ms3Controller {
     @GetMapping("/get")
     public String ms3() {
     	
-    	logger.info("Hello from HTTPS--MS3");
+    	logger.info("Hello from GR-HTTPS-SSL-MS3");
     	
-        return "Hello from HTTPS--MS3";
+        return "Hello from GR-HTTPS-SSL-MS3";
     }
     
 }

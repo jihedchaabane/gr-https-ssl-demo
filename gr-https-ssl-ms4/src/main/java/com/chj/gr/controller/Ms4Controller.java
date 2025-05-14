@@ -15,9 +15,9 @@ public class Ms4Controller {
     @GetMapping("/get")
     public String ms4() {
     	
-    	logger.info("Hello from HTTPS--MS4");
+    	logger.info("Hello from GR-HTTPS-SSL-MS4");
     	
-        return "Hello from HTTPS--MS4";
+        return "Hello from GR-HTTPS-SSL-MS4";
     }
     
 }
