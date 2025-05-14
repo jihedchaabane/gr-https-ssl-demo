@@ -8,6 +8,7 @@ import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -27,7 +28,7 @@ public class RestTemplateConfig {
 	   WORKS FINE.
 	*/
     @Bean("restTemplateSsl")
-    // @LoadBalanced
+    @LoadBalanced
     public RestTemplate restTemplate() throws Exception {
         KeyStore trustStore = KeyStore.getInstance("JKS");
         trustStore.load(getClass().getResourceAsStream("/ms1-truststore.jks"), "jihed1234".toCharArray());
@@ -49,7 +50,7 @@ public class RestTemplateConfig {
     }
     
     @Bean("restTemplate")
-    //  @LoadBalanced
+    @LoadBalanced
     public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
         return restTemplateBuilder.build();
     }
