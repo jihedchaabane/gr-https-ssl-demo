@@ -28,6 +28,8 @@
 		<module>gr-https-ssl-ms2</module>
 		<module>gr-https-ssl-ms3</module>
 		<module>gr-https-ssl-ms4</module>
+		<module>gr-nohttps-ssl-student</module>
+		<module>gr-nohttps-ssl-department</module>
 	</modules>
 	<dependencies>
 		<dependency>
@@ -49,7 +51,7 @@
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 		
-		<!-- Config Server Client 
+		<!-- Config Server Client -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
@@ -58,7 +60,7 @@
 		    <groupId>org.springframework.cloud</groupId>
 		    <artifactId>spring-cloud-starter-bootstrap</artifactId>
 		</dependency>
-		-->
+		
 		<!-- SWAGGER -->
 		<dependency>
 			<groupId>org.springdoc</groupId>

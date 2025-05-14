@@ -104,7 +104,7 @@ caller:
       scopes:
       registrationId: sts-ms4-service-registration
     client5:
-      resourceUri: http://localhost:2021
+      resourceUri: http://localhost:1002
       clientId:
       clientSecret:
       scopes:
