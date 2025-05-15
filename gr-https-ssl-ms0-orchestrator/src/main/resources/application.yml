@@ -5,8 +5,8 @@
 #      enabled: true
 
 
-logging:
-  level:
-    org.springframework.cloud: DEBUG
-    org.springframework.web.client: DEBUG
-    org.apache.http: DEBUG
+#logging:
+#  level:
+#    org.springframework.cloud: DEBUG
+#    org.springframework.web.client: DEBUG
+#    org.apache.http: DEBUG
