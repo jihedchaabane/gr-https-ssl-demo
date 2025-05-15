@@ -1,5 +1,6 @@
 package com.chj.gr.properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
@@ -60,6 +61,9 @@ public class SwaggerParamsProperties {
 		}
 
 		public void setUri(String uri) {
+			if (StringUtils.isNotEmpty(uri)) {
+				uri = uri.contains(":84") ? uri.replace("http", "https") : uri;
+			}
 			this.uri = uri;
 		}
 

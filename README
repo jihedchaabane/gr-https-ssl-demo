@@ -50,7 +50,7 @@ keytool -importcert -file ms2.crt -keystore ms1-truststore.jks -alias ms2 -store
 
 ============================================================================================================
 http://localhost:8761/
-
+http://localhost:8765/swagger-ui/index.html
 
 http://localhost:1000/swagger-ui/index.html
 
