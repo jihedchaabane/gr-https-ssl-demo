@@ -48,3 +48,25 @@ SubjectAlternativeName [
 keytool -exportcert -keystore ms2.p12 -storetype PKCS12 -storepass jihed123 -alias ms2 -file ms2.crt
 keytool -importcert -file ms2.crt -keystore ms1-truststore.jks -alias ms2 -storepass jihed1234 -noprompt
 
+============================================================================================================
+http://localhost:8761/
+
+
+http://localhost:1000/swagger-ui/index.html
+
+http://localhost:1001/swagger-ui/index.html
+
+http://localhost:1002/swagger-ui/index.html
+
+
+https://localhost:8441/swagger-ui/index.html
+https://localhost:8442/swagger-ui/index.html
+https://localhost:8443/swagger-ui/index.html
+https://localhost:8444/swagger-ui/index.html
+
+
+
+curl https://localhost:8441/get --insecure
+curl https://localhost:8442/get --insecure
+curl https://localhost:8443/get --insecure
+curl https://localhost:8444/get --insecure

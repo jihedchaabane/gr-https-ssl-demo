@@ -2,6 +2,7 @@ package com.chj.gr.clients;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -14,15 +15,13 @@ import com.chj.gr.properties.CallerDestinationProperties.DestinationClient;
 public class Ms1DepartmentClientService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-
-	private final RestTemplate restTemplate;
-
+	
+	@Autowired
+	@Qualifier("restTemplate")
+	private RestTemplate restTemplate;
+	
+	@Autowired
 	private CallerDestinationProperties callerDestinationProperties;
-
-	public Ms1DepartmentClientService(@Qualifier("restTemplate") RestTemplate restTemplate, CallerDestinationProperties callerDestinationProperties) {
-		this.restTemplate = restTemplate;
-		this.callerDestinationProperties = callerDestinationProperties;
-	}
 
 	public String getDepartments() {
 		DestinationClient destinationClient = callerDestinationProperties
