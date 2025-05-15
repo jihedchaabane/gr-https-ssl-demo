@@ -9,7 +9,9 @@ public enum EnumResourceServer {
 	STS_MS2_SERVICE_REGISTRATION				("client2",  "sts-ms2-service-registration"),
 	STS_MS3_SERVICE_REGISTRATION				("client3",  "sts-ms3-service-registration"),
 	STS_MS4_SERVICE_REGISTRATION				("client4",  "sts-ms4-service-registration"),
-	STS_MS1_DEPARTMENT_SERVICE_REGISTRATION		("client5",  "sts-ms1-department-service-registration");
+	
+	STS_DEPARTMENT_SERVICE_REGISTRATION			("client5",  "sts-gr-nohttps-ssl-department-registration"),
+	STS_STUDENT_SERVICE_REGISTRATION			("client6",  "sts-gr-nohttps-ssl-student-registration");
 
     private final String key;
     private final String registrationId;

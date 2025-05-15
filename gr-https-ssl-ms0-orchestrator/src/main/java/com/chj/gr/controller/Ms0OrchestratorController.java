@@ -7,10 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chj.gr.clients.Ms1ClientService;
-import com.chj.gr.clients.Ms1DepartmentClientService;
 import com.chj.gr.clients.Ms2ClientService;
 import com.chj.gr.clients.Ms3ClientService;
 import com.chj.gr.clients.Ms4ClientService;
+import com.chj.gr.clients.NoSSLDepartmentClientService;
+import com.chj.gr.clients.NoSSLStudentClientService;
 
 @RestController
 @RequestMapping("/get")
@@ -22,21 +23,24 @@ public class Ms0OrchestratorController {
     private final Ms2ClientService ms2ClientService;
     private final Ms3ClientService ms3ClientService;
     private final Ms4ClientService ms4ClientService;
-    private final Ms1DepartmentClientService ms1DepartmentClientService;
+    private final NoSSLDepartmentClientService noSSLDepartmentClientService;
+    private final NoSSLStudentClientService noSSLStudentClientService;
 
     public Ms0OrchestratorController(
     		Ms1ClientService ms1ClientService,
     		Ms2ClientService ms2ClientService,
 			Ms3ClientService ms3ClientService, 
 			Ms4ClientService ms4ClientService,
-			Ms1DepartmentClientService ms1DepartmentClientService
+			NoSSLDepartmentClientService noSSLDepartmentClientService,
+			NoSSLStudentClientService noSSLStudentClientService
 	) {
 		super();
 		this.ms1ClientService = ms1ClientService;
 		this.ms2ClientService = ms2ClientService;
 		this.ms3ClientService = ms3ClientService;
 		this.ms4ClientService = ms4ClientService;
-		this.ms1DepartmentClientService = ms1DepartmentClientService;
+		this.noSSLDepartmentClientService = noSSLDepartmentClientService;
+		this.noSSLStudentClientService = noSSLStudentClientService;
 	}
 
     @GetMapping("/ms1")
@@ -71,12 +75,20 @@ public class Ms0OrchestratorController {
         return ms4ClientService.get();
     }
     
-    @GetMapping("/ms1/departments")
+    @GetMapping("/nossl/departments")
     public String ms5() {
     	
-    	logger.info("Calling MS1-DEPARTMENT");
+    	logger.info("Calling GR-NOHTTPS-SSL-DEPARTMENT");
     	
-        return ms1DepartmentClientService.getDepartments();
+        return noSSLDepartmentClientService.getDepartments();
+    }
+    
+    @GetMapping("/nossl/students")
+    public String ms6() {
+    	
+    	logger.info("Calling GR-NOHTTPS-SSL-STUDENT");
+    	
+        return noSSLStudentClientService.getStudents();
     }
     
 }

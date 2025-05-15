@@ -24,18 +24,20 @@ public class RestTemplateConfig {
 		      trustStore: classpath:ms1-truststore.jks
 		      trustStorePassword: jihed1234
 	      
-	   Ou configurez programmatiquement RestTemplate pour utiliser le truststore: (
-	   			FONCTIONNE bien SANS eureka.instance.preferIpAddress: true
-	   			https://localhost:8443/..
-	   )
+	   Ou configurez programmatiquement RestTemplate pour utiliser le truststore.
 	*/
 	
 	/**
-    @LoadBalanced
-    ==> l'appel avec https://MON_SERVICE_APP_NAME
-    Il faut que : eureka.instance.preferIpAddress: true
-    
-    @TODO NE FONCTIONNE PAS ENCORE pour les appels SSL.
+    	@LoadBalanced
+    		==> l'appel avec [https/https]://MON_SERVICE_APP_NAME
+    		Il faut que : eureka.instance.preferIpAddress: true
+    		
+    		https:
+		    		eureka:
+					  instance:
+					    secure-port: 8441  # Advertise HTTPS port
+					    secure-port-enabled: true
+					    non-secure-port-enabled: false
     */
     @Bean("restTemplateSsl")
     @LoadBalanced
@@ -59,13 +61,6 @@ public class RestTemplateConfig {
         return new RestTemplate(factory);
     }
     
-    /**
-     @LoadBalanced
-     ==> l'appel avec http://MON_SERVICE_APP_NAME
-     Il faut que : eureka.instance.preferIpAddress: true
-     
-     FONCTIONNE CORRECTEMENT pour les appels non SSL.
-     */
     @Bean("restTemplate")
     @LoadBalanced
     public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
