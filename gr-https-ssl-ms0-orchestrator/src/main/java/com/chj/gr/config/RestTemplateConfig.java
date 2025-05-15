@@ -16,20 +16,26 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class RestTemplateConfig {
-	/**
+		/**
 		@TODO din't work!
 		javax:
 		  net:
 		    ssl:
 		      trustStore: classpath:ms1-truststore.jks
 		      trustStorePassword: jihed1234
-	      
-	   Ou configurez programmatiquement RestTemplate pour utiliser le truststore.
-	*/
+		@TODO din't work too!      
+	    server:
+  		  ssl:
+    	    trustStore: classpath:ms1-truststore.jks
+    		trustStorePassword: jihed1234
+		
+		@WORKED_FINE
+	    Ou configurez programmatiquement RestTemplate pour utiliser le truststore.
+		*/
 	
-	/**
+		/**
     	@LoadBalanced
-    		==> l'appel avec [https/https]://MON_SERVICE_APP_NAME
+    		==> l'appel avec [https/http]://MON_SERVICE_APP_NAME
     		Il faut que : eureka.instance.preferIpAddress: true
     		
     		https:
@@ -38,7 +44,7 @@ public class RestTemplateConfig {
 					    secure-port: 8441  # Advertise HTTPS port
 					    secure-port-enabled: true
 					    non-secure-port-enabled: false
-    */
+		 */
     @Bean("restTemplateSsl")
     @LoadBalanced
     public RestTemplate restTemplateSsl() throws Exception {
