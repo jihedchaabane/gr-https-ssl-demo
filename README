@@ -1,41 +1,25 @@
 88_HTTPS_SSL
 
-
 ============================================================================================================
 ==> ms1, ms2, ms3, ms4:
 server:
-  port: 8443
+  port: 8441
   ssl:
     enabled: true
     key-store-type: PKCS12
     key-store: classpath: ms2.p12
     key-store-password: jihed123
     key-alias: ms2
-======openssl==============
-** create san.cnf with:
-[req]
-distinguished_name = req_distinguished_name
-x509_extensions = v3_req
-prompt = no
+eureka:
+  instance:
+    secure-port: 8441  # Advertise HTTPS port
+    secure-port-enabled: true
+    non-secure-port-enabled: false
+    metadata-map:
+      management.port: 8441
+      management.secure: true
 
-[req_distinguished_name]
-CN = localhost
-
-[v3_req]
-keyUsage = keyEncipherment, dataEncipherment
-extendedKeyUsage = serverAuth
-subjectAltName = @alt_names
-
-[alt_names]
-DNS.1 = localhost
-IP.1 = 127.0.0.1
-
-# Generate a private key and certificate with SAN
-openssl req -x509 -newkey rsa:2048 -sha256 -nodes -days 365 -keyout ms2.key -out ms2.crt -config san.cnf
-
-# Convert to PKCS12 keystore for Spring Boot
-openssl pkcs12 -export -in ms2.crt -inkey ms2.key -name ms2 -out ms2.p12 -passout pass:changeit
-======keytool==============
+======keytool===============================================================================================
 keytool -genkeypair -alias ms2 -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore ms2.p12 -validity 365 -dname "CN=localhost" -ext "SAN=DNS:localhost,IP:127.0.0.1" -storepass jihed123
 ====================
 keytool -list -v -keystore ms2.p12 -storetype PKCS12 -storepass jihed123 | grep -A 2 "SubjectAlternativeName"
@@ -43,21 +27,24 @@ SubjectAlternativeName [
   DNSName: localhost
   IPAddress: 127.0.0.1
 ============================================================================================================
-==> gr-https-ssl-ms0-orchestrator
-
+==> gr-https-ssl-ms0-orchestrator et éventuellement autres clients:
+-- .crt
 keytool -exportcert -keystore ms2.p12 -storetype PKCS12 -storepass jihed123 -alias ms2 -file ms2.crt
 keytool -importcert -file ms2.crt -keystore ms1-truststore.jks -alias ms2 -storepass jihed1234 -noprompt
 
+-- .pem:
+keytool -export -keystore ms2.p12 -alias ms2 -rfc -file ms2.pem -storepass jihed123
+keytool -import     -file ms2.pem -keystore ms1-truststore.jks -alias ms2  -storepass jihed1234 -noprompt
+
 ============================================================================================================
 http://localhost:8761/
+http://localhost:8763
 http://localhost:8765/swagger-ui/index.html
 
 http://localhost:1000/swagger-ui/index.html
 
 http://localhost:1001/swagger-ui/index.html
-
 http://localhost:1002/swagger-ui/index.html
-
 
 https://localhost:8441/swagger-ui/index.html
 https://localhost:8442/swagger-ui/index.html
@@ -65,8 +52,12 @@ https://localhost:8443/swagger-ui/index.html
 https://localhost:8444/swagger-ui/index.html
 
 
+# Ignorer la validation SSL (-k ou --insecure):
+curl https://localhost:8441/actuator/health -k
 
 curl https://localhost:8441/get --insecure
 curl https://localhost:8442/get --insecure
 curl https://localhost:8443/get --insecure
 curl https://localhost:8444/get --insecure
+
+

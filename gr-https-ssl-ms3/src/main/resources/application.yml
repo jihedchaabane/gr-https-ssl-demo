@@ -7,6 +7,9 @@ eureka:
     secure-port: 8443  # Advertise HTTPS port
     secure-port-enabled: true
     non-secure-port-enabled: false
+    metadata-map:
+      management.port: 8443
+      management.secure: true
 
 #logging:
 #  level:
