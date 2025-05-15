@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: gr-https-ssl-ms4
+    name: gr-https-ssl-ms3
   # Connect to the config server to get the properties
   cloud:
     config:

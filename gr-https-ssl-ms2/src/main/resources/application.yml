@@ -2,3 +2,14 @@
 #  cloud:
 #    discovery:
 #      enabled: true
+eureka:
+  instance:
+    secure-port: 8442  # Advertise HTTPS port
+    secure-port-enabled: true
+    non-secure-port-enabled: false
+
+logging:
+  level:
+    org.springframework.cloud: DEBUG
+    org.springframework.web.client: DEBUG
+    org.apache.http: DEBUG
