@@ -10,6 +10,7 @@ import com.chj.gr.clients.Ms1ClientService;
 import com.chj.gr.clients.Ms2ClientService;
 import com.chj.gr.clients.Ms3ClientService;
 import com.chj.gr.clients.Ms4ClientService;
+import com.chj.gr.clients.Ms5ClientService;
 import com.chj.gr.clients.NoSSLDepartmentClientService;
 import com.chj.gr.clients.NoSSLStudentClientService;
 
@@ -23,6 +24,7 @@ public class Ms0OrchestratorController {
     private final Ms2ClientService ms2ClientService;
     private final Ms3ClientService ms3ClientService;
     private final Ms4ClientService ms4ClientService;
+    private final Ms5ClientService ms5ClientService;
     private final NoSSLDepartmentClientService noSSLDepartmentClientService;
     private final NoSSLStudentClientService noSSLStudentClientService;
 
@@ -31,6 +33,7 @@ public class Ms0OrchestratorController {
     		Ms2ClientService ms2ClientService,
 			Ms3ClientService ms3ClientService, 
 			Ms4ClientService ms4ClientService,
+			Ms5ClientService ms5ClientService,
 			NoSSLDepartmentClientService noSSLDepartmentClientService,
 			NoSSLStudentClientService noSSLStudentClientService
 	) {
@@ -39,6 +42,7 @@ public class Ms0OrchestratorController {
 		this.ms2ClientService = ms2ClientService;
 		this.ms3ClientService = ms3ClientService;
 		this.ms4ClientService = ms4ClientService;
+		this.ms5ClientService = ms5ClientService;
 		this.noSSLDepartmentClientService = noSSLDepartmentClientService;
 		this.noSSLStudentClientService = noSSLStudentClientService;
 	}
@@ -48,7 +52,7 @@ public class Ms0OrchestratorController {
     	
     	logger.info("Calling GR-HTTPS-SSL-MS1");
     	
-        return ms1ClientService.get();
+        return this.ms1ClientService.get();
     }
 
     @GetMapping("/ms2")
@@ -56,7 +60,7 @@ public class Ms0OrchestratorController {
     	
     	logger.info("Calling GR-HTTPS-SSL-MS2");
     	
-        return ms2ClientService.get();
+        return this.ms2ClientService.get();
     }
 
     @GetMapping("/ms3")
@@ -64,7 +68,7 @@ public class Ms0OrchestratorController {
     	
     	logger.info("Calling GR-HTTPS-SSL-MS3");
     	
-        return ms3ClientService.get();
+        return this.ms3ClientService.get();
     }
 
     @GetMapping("/ms4")
@@ -72,23 +76,31 @@ public class Ms0OrchestratorController {
     	
     	logger.info("Calling GR-HTTPS-SSL-MS4");
     	
-        return ms4ClientService.get();
+        return this.ms4ClientService.get();
+    }
+    
+    @GetMapping("/ms5")
+    public String ms5() {
+    	
+    	logger.info("Calling GR-HTTPS-SSL-MS5");
+    	
+        return this.ms5ClientService.get();
     }
     
     @GetMapping("/nossl/departments")
-    public String ms5() {
+    public String departments() {
     	
     	logger.info("Calling GR-NOHTTPS-SSL-DEPARTMENT");
     	
-        return noSSLDepartmentClientService.getDepartments();
+        return this.noSSLDepartmentClientService.getDepartments();
     }
     
     @GetMapping("/nossl/students")
-    public String ms6() {
+    public String students() {
     	
     	logger.info("Calling GR-NOHTTPS-SSL-STUDENT");
     	
-        return noSSLStudentClientService.getStudents();
+        return this.noSSLStudentClientService.getStudents();
     }
     
 }
