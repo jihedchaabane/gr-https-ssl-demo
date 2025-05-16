@@ -2,14 +2,7 @@
 #  cloud:
 #    discovery:
 #      enabled: true
-eureka:
-  instance:
-    secure-port: 8441  # Advertise HTTPS port
-    secure-port-enabled: true
-    non-secure-port-enabled: false
-    metadata-map:
-      management.port: 8441
-      management.secure: true
+
 #logging:
 #  level:
 #    org.springframework.cloud: DEBUG
