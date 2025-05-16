@@ -8,6 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gr-https-ssl-ms1</name>
 	<packaging>jar</packaging>
+	<description>MS1 Microservice</description>
 
 	<parent>
 		<groupId>com.chj.gr</groupId>

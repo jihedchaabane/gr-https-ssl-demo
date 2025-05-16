@@ -5,9 +5,9 @@
 	<groupId>com.chj.gr</groupId>
 	<artifactId>gr-nohttps-ssl-department</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Department Microservice</name>
-	<description>Department Microservice</description>
+	<name>gr-nohttps-ssl-department</name>
 	<packaging>jar</packaging>
+	<description>Department Microservice</description>
 	
 	<parent>
 		<groupId>com.chj.gr</groupId>

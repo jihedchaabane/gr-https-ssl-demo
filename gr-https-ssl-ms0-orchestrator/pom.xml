@@ -8,6 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gr-https-ssl-ms0-orchestrator</name>
 	<packaging>jar</packaging>
+	<description>ORCHESTRATOR Microservice</description>
 	
 	<parent>
 		<groupId>com.chj.gr</groupId>

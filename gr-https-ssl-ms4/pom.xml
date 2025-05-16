@@ -8,6 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gr-https-ssl-ms4</name>
 	<packaging>jar</packaging>
+	<description>MS4 Microservice</description>
 
 	<parent>
 		<groupId>com.chj.gr</groupId>

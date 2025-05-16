@@ -20,7 +20,6 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>21</java.version>
 		<spring-cloud.version>2021.0.9</spring-cloud.version>
-		<springdoc.version>1.6.9</springdoc.version>
 	</properties>
 	<modules>
 		<module>gr-https-ssl-ms0-orchestrator</module>
@@ -28,10 +27,16 @@
 		<module>gr-https-ssl-ms2</module>
 		<module>gr-https-ssl-ms3</module>
 		<module>gr-https-ssl-ms4</module>
+		<module>gr-https-ssl-ms5</module>
 		<module>gr-nohttps-ssl-student</module>
 		<module>gr-nohttps-ssl-department</module>
 	</modules>
 	<dependencies>
+		<dependency>
+		    <groupId>com.chj.gr</groupId>
+		    <artifactId>gr-common-configs</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -39,11 +44,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.5.14</version>
 		</dependency>
 		<!-- EUREKA -->
 		<dependency>
@@ -60,14 +60,6 @@
 		    <groupId>org.springframework.cloud</groupId>
 		    <artifactId>spring-cloud-starter-bootstrap</artifactId>
 		</dependency>
-		
-		<!-- SWAGGER -->
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>${springdoc.version}</version>
-		</dependency>
-		
 		<!--ZIPKIN 
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -79,6 +71,7 @@
 			<version>2.2.8.RELEASE</version>
 		</dependency>
 		-->
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
