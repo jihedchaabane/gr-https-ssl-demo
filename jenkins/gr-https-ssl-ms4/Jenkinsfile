@@ -5,11 +5,11 @@ pipeline {
     }
     environment {
 		// Chemin du module Spring Boot
-        MODULE_PATH = 'gr-https-ssl-ms'
+        MODULE_PATH = 'gr-https-ssl-ms4'
         // Nom de l'image Docker
-        DOCKER_IMAGE = 'jihed123/gr-https-ssl-ms:0.0.1-SNAPSHOT'
+        DOCKER_IMAGE = 'jihed123/gr-https-ssl-ms4:0.0.1-SNAPSHOT'
         // Nom du conteneur
-        CONTAINER_NAME = 'container-gr-https-ssl-ms'
+        CONTAINER_NAME = 'container-gr-https-ssl-ms4'
         // Port de l'application
         APP_PORT = '8444'
         // common-network
