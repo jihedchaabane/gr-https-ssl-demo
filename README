@@ -42,6 +42,8 @@ http://localhost:8763
 http://localhost:8765/swagger-ui/index.html
 
 http://localhost:1000/swagger-ui/index.html
+http://localhost:1001/swagger-ui/index.html
+http://localhost:1002/swagger-ui/index.html
 
 http://localhost:1001/swagger-ui/index.html
 http://localhost:1002/swagger-ui/index.html
@@ -50,8 +52,7 @@ https://localhost:8441/swagger-ui/index.html
 https://localhost:8442/swagger-ui/index.html
 https://localhost:8443/swagger-ui/index.html
 https://localhost:8444/swagger-ui/index.html
-
-
+====================================================
 # Ignorer la validation SSL (-k ou --insecure):
 curl https://localhost:8441/actuator/health -k
 
@@ -59,5 +60,18 @@ curl https://localhost:8441/get --insecure
 curl https://localhost:8442/get --insecure
 curl https://localhost:8443/get --insecure
 curl https://localhost:8444/get --insecure
-
+curl https://localhost:8445/get --insecure
+====================================================
+sudo firewall-cmd --permanent --add-port=1000/tcp
+sudo firewall-cmd --permanent --add-port=1001/tcp
+sudo firewall-cmd --permanent --add-port=1002/tcp
+sudo firewall-cmd --permanent --add-port=8441/tcp
+sudo firewall-cmd --permanent --add-port=8442/tcp
+sudo firewall-cmd --permanent --add-port=8443/tcp
+sudo firewall-cmd --permanent --add-port=8444/tcp
+sudo firewall-cmd --permanent --add-port=8445/tcp
+sudo firewall-cmd --reload
+sudo firewall-cmd --list-ports
+sudo firewall-cmd --list-all
+====================================================
 
