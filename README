@@ -39,7 +39,7 @@ keytool -import     -file ms2.pem -keystore ms1-truststore.jks -alias ms2  -stor
 ============================================================================================================
 http://localhost:8761/
 http://localhost:8763
-http://localhost:8765/swagger-ui/index.html
+http://localhost:8766/swagger-ui/index.html
 
 http://localhost:1000/swagger-ui/index.html
 http://localhost:1001/swagger-ui/index.html
