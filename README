@@ -1,9 +1,9 @@
 88_HTTPS_SSL
 
 ============================================================================================================
-==> ms1, ms2, ms3, ms4:
+==> ms1, ms2, ms3, ms4, ms4:
 server:
-  port: 8441
+  port: 8441, 8442, 8443, 8444, 8445
   ssl:
     enabled: true
     key-store-type: PKCS12
@@ -12,30 +12,44 @@ server:
     key-alias: ms2
 eureka:
   instance:
-    secure-port: 8441  # Advertise HTTPS port
+    secure-port: 8441, 8442, 8443, 8444, 8445  # Advertise HTTPS ports
     secure-port-enabled: true
     non-secure-port-enabled: false
     metadata-map:
-      management.port: 8441
+      management.port: 8441, 8442, 8443, 8444, 8445
       management.secure: true
 
-======keytool===============================================================================================
-keytool -genkeypair -alias ms2 -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore ms2.p12 -validity 365 -dname "CN=localhost" -ext "SAN=DNS:localhost,IP:127.0.0.1" -storepass jihed123
+==========================================================================================================================================
+javax.net.ssl.SSLPeerUnverifiedException: Certificate for <192.168.56.1> doesn't match any of the subject alternative names: DNS:******
+"SAN=IP:192.168.56.1" est obligatoire pour que ça fonctionne.
+======keytool=============================================================================================================================
+keytool -genkeypair -alias ms2 -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore ms2.p12 -validity 365 -dname "CN=gr-https-ssl-demo" -ext "SAN=DNS:localhost,DNS:127.0.0.1,DNS:192.168.56.1,IP:192.168.56.1" -storepass jihed123
 ====================
-keytool -list -v -keystore ms2.p12 -storetype PKCS12 -storepass jihed123 | grep -A 2 "SubjectAlternativeName"
+keytool -list -v -keystore ms2.p12 -storetype PKCS12 -storepass jihed123 | grep -A 6 "SubjectAlternativeName"
 SubjectAlternativeName [
+  DNSName: gr-https-ssl-demo
   DNSName: localhost
-  IPAddress: 127.0.0.1
+  DNSName: 127.0.0.1
+  DNSName: 192.168.56.1
+  IPAddress: 192.168.56.1
+]
 ============================================================================================================
 ==> gr-https-ssl-ms0-orchestrator et éventuellement autres clients:
 -- .crt
-keytool -exportcert -keystore ms2.p12 -storetype PKCS12 -storepass jihed123 -alias ms2 -file ms2.crt
+keytool -exportcert -keystore ms2.p12 -storetype PKCS12 -storepass jihed123 -alias ms2 -file ms2.crt -rfc
 keytool -importcert -file ms2.crt -keystore ms1-truststore.jks -alias ms2 -storepass jihed1234 -noprompt
 
--- .pem:
-keytool -export -keystore ms2.p12 -alias ms2 -rfc -file ms2.pem -storepass jihed123
-keytool -import     -file ms2.pem -keystore ms1-truststore.jks -alias ms2  -storepass jihed1234 -noprompt
+curl --cacert ms2.crt https://localhost:8441/get		==> WORKS
+curl --cacert ms2.crt https://127.0.0.1:8441/get		==> WORKS
+curl --cacert ms2.crt https://192.168.56.1:8441/get		==> WORKS
 
+-- .pem:
+keytool -export 	-keystore ms2.p12  -storetype PKCS12 -storepass jihed123 -alias ms2 -file ms2.pem -rfc
+keytool -import     -file ms2.pem -keystore ms1-truststore.jks -alias ms2 -storepass jihed1234 -noprompt
+
+curl --cacert ms2.pem https://localhost:8441/get		==> WORKS
+curl --cacert ms2.pem https://127.0.0.1:8441/get		==> WORKS
+curl --cacert ms2.pem https://192.168.56.1:8441/get		==> WORKS
 ============================================================================================================
 http://localhost:8761/
 http://localhost:8763
@@ -45,22 +59,16 @@ http://localhost:1000/swagger-ui/index.html
 http://localhost:1001/swagger-ui/index.html
 http://localhost:1002/swagger-ui/index.html
 
-http://localhost:1001/swagger-ui/index.html
-http://localhost:1002/swagger-ui/index.html
-
 https://localhost:8441/swagger-ui/index.html
 https://localhost:8442/swagger-ui/index.html
 https://localhost:8443/swagger-ui/index.html
 https://localhost:8444/swagger-ui/index.html
+https://localhost:8445/swagger-ui/index.html
 ====================================================
 # Ignorer la validation SSL (-k ou --insecure):
-curl https://localhost:8441/actuator/health -k
 
+curl https://localhost:8441/get -k
 curl https://localhost:8441/get --insecure
-curl https://localhost:8442/get --insecure
-curl https://localhost:8443/get --insecure
-curl https://localhost:8444/get --insecure
-curl https://localhost:8445/get --insecure
 ====================================================
 sudo firewall-cmd --permanent --add-port=1000/tcp
 sudo firewall-cmd --permanent --add-port=1001/tcp
